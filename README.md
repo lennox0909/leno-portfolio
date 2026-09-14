@@ -2,7 +2,7 @@
 ## Project Tree
 
 ```text
-📂 sci-fi-portfolio (GitHub Pages 專案結構)
+📂 leno-portfolio (GitHub Pages 專案結構)
 ├── 📁 .github
 │   └── 📁 workflows
 │       └── 📄 deploy.yml      # CI/CD 部署自動化 (SRP：專職發布)
