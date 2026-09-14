@@ -1,0 +1,65 @@
+<!-- 檔案路徑：index.html -->
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- 引入共用 Meta 與樣式組件 -->
+    {% include head.html %}
+</head>
+<body>
+
+    <!-- 背景特效 (背景網格與掃描線) -->
+    <div class="grid-container">
+        <div class="grid"></div>
+    </div>
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+
+    <!-- 系統狀態提示 -->
+    <div class="status-text">NATURE OS > <span id="status-msg">INITIALIZING...</span></div>
+
+    <!-- 系統終端機風格選單 (依賴外部資料渲染) -->
+    {% include nav.html %}
+
+    <!-- 核心 SVG 動畫畫布 -->
+    <svg id="main-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
+        <defs>
+            <filter id="cyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur1" />
+                <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2" />
+                <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur3" />
+                <feMerge>
+                    <feMergeNode in="blur3" />
+                    <feMergeNode in="blur2" />
+                    <feMergeNode in="blur1" />
+                    <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
+
+            <filter id="orangeGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur1" />
+                <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur2" />
+                <feMerge>
+                    <feMergeNode in="blur2" />
+                    <feMergeNode in="blur1" />
+                    <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
+
+            <clipPath id="text-clip">
+                <rect id="clip-rect" x="0" y="0" width="0" height="1200" />
+            </clipPath>
+        </defs>
+
+        <!-- 目標文字讀取自資料中心 -->
+        <text id="target-text" x="600" y="420" text-anchor="middle">
+            {{ site.data.site_config.target_name }}
+        </text>
+
+        <line id="laser-beam" x1="0" y1="0" x2="0" y2="0" stroke="#fff" stroke-width="4" filter="url(#orangeGlow)" style="opacity: 0;" />
+        <circle id="spark" cx="0" cy="0" r="0" fill="#fff" filter="url(#orangeGlow)" style="opacity: 0;" />
+    </svg>
+
+    <!-- 引入解耦後的動畫模組腳本 -->
+    <script src="{{ '/assets/app.js' | relative_url }}"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!-- 檔案路徑：_includes/nav.html -->
+<nav class="nav-menu">
+    <!-- 遍歷 site_config.json 中的導覽列資料 -->
+    {% for item in site.data.site_config.nav_items %}
+    <div class="nav-item-wrapper">
+        
+        <!-- 判斷是否有下拉選單 -->
+        {% if item.has_dropdown %}
+            <div class="nav-item">{{ item.title }}</div> // {{ item.label }}
+            
+            <div class="dropdown-content">
+                {% for sub_item in item.sub_items %}
+                <a href="{{ sub_item.url }}" class="dropdown-item" target="_blank" rel="noopener noreferrer">
+                    {{ sub_item.title }}
+                </a>
+                {% endfor %}
+            </div>
+            
+        {% else %}
+            <a href="{{ item.url }}" class="nav-item" {% if item.id %}id="{{ item.id }}"{% endif %}>
+                {{ item.title }}
+            </a> // {{ item.label }}
+        {% endif %}
+        
+    </div>
+    {% endfor %}
+</nav>
