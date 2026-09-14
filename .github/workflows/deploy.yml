@@ -1,12 +1,10 @@
-# 檔案路徑：.github/workflows/deploy.yml
 name: Deploy Jekyll site to Pages
 
 on:
   push:
-    branches: ["main"] # 當推送到 main 分支時觸發
-  workflow_dispatch:   # 允許手動觸發部署
+    branches: ["main"]
+  workflow_dispatch:
 
-# 設定 GitHub Pages 的讀寫權限
 permissions:
   contents: read
   pages: write
@@ -21,16 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
 
   deploy:
     environment:
@@ -41,4 +36,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
