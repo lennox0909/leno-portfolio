@@ -14,11 +14,8 @@
       "has_dropdown": true,
       "sub_items": [
         { "title": "> GAME OF LIFE", "url": "./game_of_life/" },
-        { "title": "> AR for Apple Vision Pro", "url": "./3D_App/" },
-        { "title": "> Matix AR", "url": "./matrix/" },
-        { "title": "> QRCode Generator", "url": "./qrcode/" },
-        { "title": "> AIoT Matter Protocol", "url": "./AIoT/" },
-        { "title": "> Hospital Staff Shifting", "url": "./scheduling/" }
+        { "title": "> VRP-Simulator(Timefold-Solver)", "url": "./Timefold/" },
+        { "title": "> AIoT Matter Protocol", "url": "./AIoT/" }
       ]
     },
     {
