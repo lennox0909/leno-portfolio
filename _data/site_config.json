@@ -14,7 +14,7 @@
       "has_dropdown": true,
       "sub_items": [
         { "title": "> GAME OF LIFE", "url": "./game_of_life/" },
-        { "title": "> VRP-Simulator(/br)(Timefold-Solver)", "url": "./Timefold/" },
+        { "title": "> VRP-Simulator(Timefold-Solver)", "url": "./Timefold/" },
         { "title": "> AIoT Matter Protocol", "url": "./AIoT/" }
       ]
     },
