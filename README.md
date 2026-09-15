@@ -97,20 +97,36 @@ graph TD
 
 ```mermaid
 graph TD
-    Event["Event (觸發事件)"] -->|啟動| WF["Workflow (工作流程)"]
-    WF --> J1["Job 1: 測試 (Test)"]
-    WF --> J2["Job 2: 部署 (Deploy)"]
+    %% 定義全域樣式類別
+    classDef eventStyle fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c
+    classDef workflowStyle fill:#e8eaf6,stroke:#283593,stroke-width:2px,color:#1a237e
+    classDef jobStyle fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#e65100
+    classDef stepStyle fill:#e0f2f1,stroke:#00695c,stroke-width:1px,color:#004d40
+
+    %% 主流程節點宣告與套用樣式
+    Event(["Event (觸發事件)"]):::eventStyle -->|啟動| WF["Workflow (工作流程)"]:::workflowStyle
+    
+    WF --> J1
+    WF --> J2
     
     J1 -. "needs (相依性)" .-> J2
-    
-    subgraph "執行於 Runner A (例如 ubuntu-latest)"
-        J1 --> S1["Step 1: uses (呼叫 Checkout Action)"]
-        S1 --> S2["Step 2: run (執行測試腳本)"]
+
+    %% Runner A 獨立環境
+    subgraph RunnerA ["執行於 Runner A (例如 ubuntu-latest)"]
+        style RunnerA fill:#fafafa,stroke:#9e9e9e,stroke-width:2px,stroke-dasharray: 5 5
+        
+        J1{{"Job 1: 測試 (Test)"}}:::jobStyle
+        J1 --> S1["Step 1: uses <br/>(呼叫 Checkout Action)"]:::stepStyle
+        S1 --> S2["Step 2: run <br/>(執行測試腳本)"]:::stepStyle
     end
     
-    subgraph "執行於 Runner B"
-        J2 --> S3["Step 1: uses (呼叫 Download Action)"]
-        S3 --> S4["Step 2: run (執行部署指令)"]
+    %% Runner B 獨立環境
+    subgraph RunnerB ["執行於 Runner B"]
+        style RunnerB fill:#fafafa,stroke:#9e9e9e,stroke-width:2px,stroke-dasharray: 5 5
+        
+        J2{{"Job 2: 部署 (Deploy)"}}:::jobStyle
+        J2 --> S3["Step 1: uses <br/>(呼叫 Download Action)"]:::stepStyle
+        S3 --> S4["Step 2: run <br/>(執行部署指令)"]:::stepStyle
     end
 ```
 ## 核心元件解析
