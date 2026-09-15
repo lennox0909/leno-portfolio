@@ -137,6 +137,8 @@ body, html {
     color: rgba(91, 179, 179, 0.9); padding: 12px 20px; text-decoration: none;
     display: block; font-size: 12px; letter-spacing: 1px; transition: all 0.3s ease;
     text-align: left; border-left: 0 solid var(--tron-cyan);
+    /* 👇 加入這一行，強制文字不換行 👇 */
+    white-space: nowrap;
 }
 .dropdown-item:hover {
     background: rgba(0, 255, 255, 0.1); color: var(--tron-cyan);
