@@ -1,0 +1,88 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- 引入共用 Meta 與全域樣式 (包含發光字體與背景網格) -->
+    {% include head.html %}
+    <title>PATHFINDING VISUALIZER | {{ site.data.site_config.target_name }}</title>
+    <!-- 引入此專案專屬樣式 -->
+    <link rel="stylesheet" href="{{ '/pathfinding/style.css' | relative_url }}">
+</head>
+<body>
+
+    <!-- 共用背景特效 -->
+    <div class="grid-container"><div class="grid"></div></div>
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+
+    <!-- 系統狀態提示 -->
+    <div class="status-text"><span>SYSTEM ONLINE</span> // PATHFINDING PROTOCOL_V1.0</div>
+
+    <!-- 返回主系統按鈕 -->
+    <a href="{{ '/' | relative_url }}" class="return-btn">
+        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        NATURE OS
+    </a>
+
+    <!-- 頂部控制面板 (HUD) -->
+    <div class="hud-panel top-panel">
+        <div class="panel-header">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon><line x1="12" y1="22" x2="12" y2="15.5"></line><polyline points="22 8.5 12 15.5 2 8.5"></polyline><polyline points="2 15.5 12 8.5 22 15.5"></polyline><line x1="12" y1="2" x2="12" y2="8.5"></line></svg>
+            <div>
+                <h1 class="panel-title">路徑演算法沙盒</h1>
+                <p class="panel-subtitle">Pathfinding Visualizer</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="select-group">
+                <label>Algorithm</label>
+                <select id="algoSelect">
+                    <option value="Dijkstra">Dijkstra</option>
+                    <option value="AStar">A-Star (A*)</option>
+                </select>
+            </div>
+            <div class="select-group">
+                <label>Tool</label>
+                <select id="toolSelect">
+                    <option value="Wall">牆壁 (Wall)</option>
+                    <option value="Eraser">橡皮擦 (Eraser)</option>
+                </select>
+            </div>
+            
+            <div class="btn-group">
+                <button id="runBtn" class="cyber-btn primary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
+                    執行
+                </button>
+                <button id="resetBtn" class="cyber-btn secondary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/></svg>
+                    重置
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 網格渲染區 (置中) -->
+    <div class="grid-wrapper">
+        <div id="path-grid" class="path-grid touch-none"></div>
+    </div>
+
+    <!-- 底部數據統計區 (HUD) -->
+    <div class="hud-panel bottom-panel">
+        <div class="stat-box">
+            <div class="stat-label">探索節點數 (VISITED)</div>
+            <div id="visitedCount" class="stat-value text-cyan">0</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-box">
+            <div class="stat-label">路徑長度 (PATH)</div>
+            <div id="pathCount" class="stat-value text-gold">0</div>
+        </div>
+    </div>
+
+    <script src="{{ '/pathfinding/script.js' | relative_url }}"></script>
+</body>
+</html>
