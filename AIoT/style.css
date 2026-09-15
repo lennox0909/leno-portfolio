@@ -1,0 +1,125 @@
+/* 覆寫 SVG 行為，讓它在切換內容時可以淡出 */
+#main-svg {
+    transition: opacity 0.8s ease;
+}
+
+/* 返回按鈕樣式 */
+.return-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--tron-cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    background: rgba(2, 2, 5, 0.6);
+    padding: 8px 12px;
+    border-radius: 4px;
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.return-btn:hover {
+    background: rgba(0, 255, 255, 0.15);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    text-shadow: 0 0 5px var(--tron-cyan);
+}
+
+.return-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+}
+
+/* 資訊面板核心樣式 */
+#content-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    max-width: 900px;
+    height: 65vh;
+    background: rgba(2, 2, 5, 0.85);
+    border: 1px solid var(--tron-cyan);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.15) inset, 0 0 15px rgba(0, 255, 255, 0.5);
+    padding: 40px;
+    overflow-y: auto;
+    z-index: 20;
+    display: none;
+    opacity: 0;
+    backdrop-filter: blur(5px);
+}
+
+#content-panel.active {
+    display: block;
+    animation: cyber-fade-in 0.6s forwards;
+}
+
+@keyframes cyber-fade-in {
+    0% { opacity: 0; transform: translate(-50%, -48%) scale(0.98); filter: blur(4px); }
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); filter: blur(0); }
+}
+
+/* 自訂卷軸 */
+#content-panel::-webkit-scrollbar { width: 6px; }
+#content-panel::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); border-left: 1px solid #111; }
+#content-panel::-webkit-scrollbar-thumb { background: var(--tron-cyan); box-shadow: 0 0 10px var(--tron-cyan); }
+
+/* 內容排版 */
+.content-title {
+    color: var(--tron-cyan);
+    font-size: 28px;
+    letter-spacing: 4px;
+    border-bottom: 2px dashed var(--tron-cyan);
+    padding-bottom: 15px;
+    margin-top: 0;
+    text-shadow: 0 0 10px var(--tron-cyan);
+}
+
+.content-body h3 {
+    color: var(--tron-orange);
+    font-size: 20px;
+    letter-spacing: 2px;
+    margin-top: 30px;
+    border-left: 4px solid var(--tron-orange);
+    padding-left: 10px;
+}
+
+.content-body p, .content-body li {
+    color: #d0d0d0;
+    line-height: 1.8;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-family: '微軟正黑體', sans-serif;
+}
+
+.content-body ul {
+    background: rgba(0, 255, 255, 0.05);
+    padding: 20px 20px 20px 40px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.highlight {
+    color: #fff;
+    font-weight: bold;
+    background: rgba(255, 140, 0, 0.3);
+    padding: 0 4px;
+    border-radius: 2px;
+}
+
+.cyan-text { color: var(--tron-cyan); font-weight: bold; }
+
+/* 手機版 RWD 適應 */
+@media screen and (max-width: 768px) {
+    #content-panel { width: 90%; padding: 20px; height: 70vh; }
+    .content-title { font-size: 20px; }
+    .return-btn { top: 10px; left: 10px; font-size: 12px; padding: 6px 10px; }
+}

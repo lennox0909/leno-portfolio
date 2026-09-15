@@ -1,0 +1,80 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- 引入共用 Meta 與全域樣式 (包含背景、發光字體與選單樣式) -->
+    {% include head.html %}
+    <title>MATTER PROTOCOL | {{ site.data.site_config.target_name }}</title>
+    <!-- 引入此頁面專屬的面板樣式 -->
+    <link rel="stylesheet" href="{{ '/AIoT/style.css' | relative_url }}">
+</head>
+<body>
+
+    <!-- 返回主系統按鈕 -->
+    <a href="{{ '/' | relative_url }}" class="return-btn">
+        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        NATURE OS
+    </a>
+
+    <!-- 覆用全域背景特效 -->
+    <div class="grid-container"><div class="grid"></div></div>
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+
+    <div class="status-text"><span>SYSTEM ONLINE</span> // MATTER PROTOCOL INTERFACE_V1.6</div>
+
+    <!-- 覆用全域的 SVG 文字特效 -->
+    <svg id="main-svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
+        <defs>
+            <filter id="cyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur1" />
+                <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur2" />
+                <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur3" />
+                <feMerge>
+                    <feMergeNode in="blur3" />
+                    <feMergeNode in="blur2" />
+                    <feMergeNode in="blur1" />
+                    <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
+        </defs>
+        <text id="target-text" x="600" y="420" text-anchor="middle">MATTER</text>
+    </svg>
+
+    <!-- 此專案獨有的資料展示面板 -->
+    <div id="content-panel">
+        <h2 id="panel-title" class="content-title">DATA STREAM</h2>
+        <div id="panel-body" class="content-body"></div>
+    </div>
+
+    <!-- 局部選單 (覆用全域 .nav-menu 樣式，但內容獨立) -->
+    <nav class="nav-menu">
+        <div class="nav-item-wrapper">
+            <div class="nav-item">核心架構</div>
+            <div class="dropdown-content">
+                <a href="#" class="dropdown-item" onclick="loadContent('model')">資料模型與 Endpoint</a>
+                <a href="#" class="dropdown-item" onclick="loadContent('network')">網通與拓樸需求</a>
+            </div>
+        </div>
+        <div class="nav-item-wrapper">
+            <div class="nav-item">平台整合</div>
+            <div class="dropdown-content">
+                <a href="#" class="dropdown-item" onclick="loadContent('integration')">HomeKit / Google Home 整合</a>
+                <a href="#" class="dropdown-item" onclick="loadContent('multiadmin')">Multi-Admin 多網域機制</a>
+            </div>
+        </div>
+        <div class="nav-item-wrapper">
+            <div class="nav-item">系統需求</div>
+            <div class="dropdown-content">
+                <a href="#" class="dropdown-item" onclick="loadContent('hardware')">MCU 硬體規格要求</a>
+                <a href="#" class="dropdown-item" onclick="loadContent('software')">軟體 SDK 與架構</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 引入資料處理腳本 -->
+    <script src="{{ '/AIoT/script.js' | relative_url }}"></script>
+</body>
+</html>

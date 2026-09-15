@@ -14,11 +14,15 @@ leno-portfolio/                      # GitHub Pages 專案結構
 │   └── nav.html                     # 導覽列模板，讀取 _data 動態生成 (LSP：確保結構一致)
 ├── assets/
 │   ├── app.js                       # 核心邏輯與動畫模組 (SRP：專職互動)
-│   └── style.css                    # 全域視覺樣式 (SRP：專職排版)
-├── game_of_life/                <-- 【新增的資料夾】
-│   ├── index.html               <-- (已加入 Front Matter 與返回按鈕)
+│   └── style.css                    # 全域視覺樣式 (SRP：專職排版) AIoT 大量覆用了這裡的 CSS
+├── game_of_life/
+│   ├── index.html
 │   ├── script.js
 │   └── style.css
+├── AIoT/
+│   ├── index.html           <-- (引入全域 head.html，加入返回按鈕)
+│   ├── script.js            
+│   └── style.css            <-- (僅保留特定面板與文字覆寫)
 └── index.html                       # 主頁面入口，負責拼裝各組件
 
 ```
