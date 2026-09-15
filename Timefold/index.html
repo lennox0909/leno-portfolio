@@ -1,0 +1,85 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- 引入共用 Meta 與全域樣式 (包含發光字體與背景網格) -->
+    {% include head.html %}
+    <title>TIMEFOLD ROUTING | {{ site.data.site_config.target_name }}</title>
+    <!-- 引入此模擬器專屬樣式 -->
+    <link rel="stylesheet" href="{{ '/Timefold/style.css' | relative_url }}">
+</head>
+<body>
+
+    <!-- 共用背景特效 -->
+    <div class="grid-container"><div class="grid"></div></div>
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+
+    <!-- 系統狀態提示 -->
+    <div class="status-text"><span>SYSTEM ONLINE</span> // TIMEFOLD VRP SOLVER_V1.0</div>
+
+    <!-- 返回主系統按鈕 (沿用之前設計) -->
+    <a href="{{ '/' | relative_url }}" class="return-btn">
+        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        NATURE OS
+    </a>
+
+    <!-- 核心繪圖區 -->
+    <canvas id="vrpCanvas"></canvas>
+
+    <!-- 頂部控制面板 (HUD) -->
+    <div class="hud-panel top-panel">
+        <div class="panel-header">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path d="M14 9h4l4 4v5c0 .6-.4 1-1 1h-2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+            <div>
+                <h1 class="panel-title">車輛路徑優化模擬器</h1>
+                <p class="panel-subtitle">Timefold Heuristic Algorithm</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="slider-group">
+                <label>車隊數量: <span id="vehicleCountDisp" class="highlight">3</span></label>
+                <input type="range" id="vehicleSlider" min="1" max="5" value="3">
+            </div>
+            
+            <div class="btn-group">
+                <button id="optimizeBtn" class="cyber-btn primary">
+                    <svg class="btn-icon play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <svg class="btn-icon pause-icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                    <span id="optimizeText">執行最佳化</span>
+                </button>
+                <button id="resetBtn" class="cyber-btn secondary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    重置節點
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 左下角狀態資訊面板 (HUD) -->
+    <div class="hud-panel bottom-panel">
+        <h3 class="status-header">最佳化狀態</h3>
+        <div class="stats-group">
+            <div class="stat-row">
+                <span>當前總距離 (分數)</span>
+            </div>
+            <div id="totalDistanceDisp" class="score-display">0</div>
+        </div>
+        <div class="stats-group border-top">
+            <div class="stat-row">
+                <span class="label">演算迭代次數</span>
+                <span id="iterationDisp" class="value">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="label">配送點總數</span>
+                <span id="nodeCountDisp" class="value">35</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ '/Timefold/script.js' | relative_url }}"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+/* 覆寫與新增返回按鈕樣式 */
+.return-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--tron-cyan);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    background: rgba(2, 2, 5, 0.6);
+    padding: 8px 12px;
+    border-radius: 4px;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+.return-btn:hover { background: rgba(0, 255, 255, 0.15); box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); }
+.return-btn svg { width: 18px; height: 18px; stroke: currentColor; }
+
+/* Canvas 設定 */
+#vrpCanvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 5;
+    /* 讓畫布背景透明，露出主系統的 3D 網格 */
+    background: transparent;
+}
+
+/* HUD 控制面板共用樣式 */
+.hud-panel {
+    position: absolute;
+    background: rgba(2, 2, 5, 0.85);
+    border: 1px solid var(--tron-cyan);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2) inset;
+    backdrop-filter: blur(8px);
+    z-index: 50;
+    border-radius: 8px;
+    padding: 15px 20px;
+    display: flex;
+}
+
+/* 頂部控制面板 */
+.top-panel {
+    top: 20px;
+    right: 20px;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    max-width: calc(100% - 160px);
+}
+
+.panel-header { display: flex; align-items: center; gap: 10px; border-right: 1px dashed rgba(0,255,255,0.3); padding-right: 20px; }
+.panel-header .icon { width: 32px; height: 32px; color: var(--tron-cyan); filter: drop-shadow(0 0 5px var(--tron-cyan)); }
+.panel-title { color: #fff; font-size: 16px; margin: 0 0 4px 0; letter-spacing: 2px; }
+.panel-subtitle { color: rgba(0, 255, 255, 0.7); font-size: 11px; margin: 0; font-family: monospace; letter-spacing: 1px; }
+
+.controls { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.slider-group { display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.5); padding: 8px 15px; border-radius: 6px; border: 1px solid rgba(255, 140, 0, 0.3); }
+.slider-group label { font-size: 13px; color: #aaa; }
+.slider-group .highlight { color: var(--tron-orange); font-weight: bold; font-family: monospace; font-size: 16px; }
+input[type="range"] { accent-color: var(--tron-orange); cursor: pointer; }
+
+/* 按鈕樣式 */
+.btn-group { display: flex; gap: 10px; }
+.cyber-btn {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'Orbitron', '微軟正黑體', sans-serif; font-size: 13px; font-weight: bold;
+    padding: 8px 15px; border-radius: 4px; cursor: pointer; transition: all 0.3s ease;
+}
+.cyber-btn.primary { background: rgba(0, 255, 255, 0.1); border: 1px solid var(--tron-cyan); color: var(--tron-cyan); }
+.cyber-btn.primary:hover, .cyber-btn.primary.active { background: var(--tron-cyan); color: #000; box-shadow: 0 0 15px var(--tron-cyan); }
+.cyber-btn.secondary { background: rgba(255, 255, 255, 0.05); border: 1px solid #555; color: #ccc; }
+.cyber-btn.secondary:hover { background: rgba(255, 255, 255, 0.2); color: #fff; border-color: #888; }
+.btn-icon { width: 16px; height: 16px; }
+.hidden { display: none !important; }
+
+/* 左下角狀態面板 */
+.bottom-panel {
+    bottom: 30px;
+    left: 30px;
+    flex-direction: column;
+    min-width: 260px;
+}
+.status-header { color: var(--tron-orange); font-size: 12px; letter-spacing: 2px; margin: 0 0 15px 0; border-bottom: 1px solid rgba(255,140,0,0.3); padding-bottom: 8px; }
+.stats-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+.stats-group.border-top { border-top: 1px dashed #333; padding-top: 15px; margin-bottom: 0; }
+.stat-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #aaa; }
+.score-display { font-family: monospace; font-size: 28px; font-weight: bold; color: var(--tron-cyan); text-shadow: 0 0 10px rgba(0,255,255,0.5); }
+.value { font-family: monospace; color: #fff; font-size: 14px; }
+
+/* RWD 微調 */
+@media screen and (max-width: 900px) {
+    .top-panel { top: 70px; right: 10px; left: 10px; max-width: none; flex-direction: column; align-items: flex-start; gap: 15px; }
+    .panel-header { border-right: none; border-bottom: 1px dashed rgba(0,255,255,0.3); padding-bottom: 10px; width: 100%; }
+    .bottom-panel { bottom: 20px; left: 10px; right: 10px; min-width: auto; }
+}

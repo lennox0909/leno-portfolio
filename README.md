@@ -16,14 +16,13 @@ leno-portfolio/                      # GitHub Pages 專案結構
 │   ├── app.js                       # 核心邏輯與動畫模組 (SRP：專職互動)
 │   └── style.css                    # 全域視覺樣式 (SRP：專職排版) AIoT 大量覆用了這裡的 CSS
 ├── game_of_life/
-│   ├── index.html
-│   ├── script.js
-│   └── style.css
 ├── AIoT/
-│   ├── index.html           <-- (引入全域 head.html，加入返回按鈕)
-│   ├── script.js            
-│   └── style.css            <-- (僅保留特定面板與文字覆寫)
+├── Timefold/
+│   ├── index.html           <-- 結合賽博 UI 與 HUD 面板
+│   ├── script.js            <-- 將 React TSX 完美轉譯的 Vanilla JS
+│   └── style.css            <-- 半透明的 HUD 面板樣式
 └── index.html                       # 主頁面入口，負責拼裝各組件
+
 
 ```
 
