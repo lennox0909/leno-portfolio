@@ -20,6 +20,7 @@ leno-portfolio/                      # GitHub Pages 專案結構
 ├── Timefold/                        # 將 React TSX 完美轉譯的 Vanilla JS
 ├── pathfinding/
 ├── GNNTraffic/                      # Vanilla JS 封裝的 D3 物理與擴散動畫
+├── constraint_satisfaction/
 └── index.html                       # 主頁面入口，負責拼裝各組件
 
 

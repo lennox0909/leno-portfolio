@@ -1,0 +1,103 @@
+/* 覆寫返回按鈕 (沿用共用設定) */
+.return-btn {
+    position: absolute; top: 20px; left: 20px; display: flex; align-items: center; gap: 8px;
+    color: var(--tron-cyan); font-size: 14px; font-weight: 700; text-decoration: none; letter-spacing: 2px;
+    border: 1px solid rgba(0, 255, 255, 0.4); background: rgba(2, 2, 5, 0.6); padding: 8px 12px; border-radius: 4px; z-index: 100; transition: all 0.3s ease;
+}
+.return-btn:hover { background: rgba(0, 255, 255, 0.15); box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); }
+.return-btn svg { width: 18px; height: 18px; stroke: currentColor; }
+
+/* HUD 面板共用設定 */
+.hud-panel {
+    position: absolute; background: rgba(2, 2, 5, 0.85); border: 1px solid var(--tron-cyan);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2) inset; backdrop-filter: blur(8px); z-index: 50; border-radius: 8px; padding: 15px 20px; display: flex;
+}
+
+/* 頂部控制面板 */
+.top-panel { top: 20px; right: 20px; flex-direction: row; align-items: center; gap: 30px; max-width: calc(100% - 160px); }
+.panel-header { display: flex; align-items: center; gap: 10px; border-right: 1px dashed rgba(0,255,255,0.3); padding-right: 20px; }
+.panel-header .icon { width: 32px; height: 32px; color: var(--tron-cyan); filter: drop-shadow(0 0 5px var(--tron-cyan)); }
+.panel-title { color: #fff; font-size: 16px; margin: 0 0 4px 0; letter-spacing: 2px; }
+.panel-subtitle { color: rgba(0, 255, 255, 0.7); font-size: 11px; margin: 0; font-family: monospace; letter-spacing: 1px; }
+
+/* 開關與按鈕 */
+.controls { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.toggle-group { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.toggle-group label { font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+.switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 20px; border: 1px solid #555; }
+.slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 2px; bottom: 2px; background-color: #aaa; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: rgba(0, 255, 255, 0.3); border-color: var(--tron-cyan); }
+input:checked + .slider:before { transform: translateX(20px); background-color: var(--tron-cyan); box-shadow: 0 0 8px var(--tron-cyan); }
+
+.btn-group { display: flex; gap: 10px; }
+.cyber-btn { display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Orbitron', '微軟正黑體', sans-serif; font-size: 13px; font-weight: bold; padding: 8px 15px; border-radius: 4px; cursor: pointer; transition: all 0.3s ease; min-width: 120px; }
+.cyber-btn.primary { background: rgba(0, 255, 255, 0.1); border: 1px solid var(--tron-cyan); color: var(--tron-cyan); }
+.cyber-btn.primary:hover { background: var(--tron-cyan); color: #000; box-shadow: 0 0 15px var(--tron-cyan); }
+.cyber-btn.primary.active { background: rgba(255, 140, 0, 0.2); border-color: var(--tron-orange); color: var(--tron-orange); }
+.cyber-btn.secondary { background: rgba(255, 255, 255, 0.05); border: 1px solid #555; color: #ccc; min-width: auto; }
+.cyber-btn.secondary:hover { background: rgba(255, 255, 255, 0.2); color: #fff; border-color: #888; }
+.btn-icon { width: 16px; height: 16px; }
+.hidden { display: none !important; }
+
+/* 底部數據面板 */
+.bottom-panel { bottom: 30px; left: 50%; transform: translateX(-50%); gap: 40px; padding: 15px 40px; }
+.stat-box { text-align: center; }
+.stat-label { font-size: 10px; color: #aaa; letter-spacing: 2px; margin-bottom: 5px; }
+.stat-value { font-family: monospace; font-size: 28px; font-weight: bold; text-shadow: 0 0 10px currentColor; }
+.text-cyan { color: var(--tron-cyan); }
+.text-red { color: #f87171; }
+.stat-divider { width: 1px; background: rgba(255,255,255,0.2); }
+
+/* 中央排班網格區 */
+.grid-wrapper {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -45%);
+    width: 90%; max-width: 850px; flex-direction: column; padding: 25px;
+}
+.schedule-grid {
+    display: grid;
+    grid-template-columns: 100px repeat(7, 1fr);
+    gap: 8px;
+    width: 100%;
+}
+.grid-header { font-size: 12px; color: var(--tron-orange); font-weight: bold; text-align: center; border-bottom: 1px dashed #555; padding-bottom: 8px; margin-bottom: 5px; }
+.row-header { font-size: 14px; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+.shift-cell {
+    display: flex; justify-content: center; align-items: center; height: 45px;
+    border-radius: 6px; font-size: 14px; font-weight: bold; font-family: '微軟正黑體', sans-serif;
+    cursor: pointer; transition: all 0.2s ease; user-select: none;
+    border: 1px solid transparent;
+}
+
+/* 班別色彩設計 */
+.shift-DAY { background: rgba(0, 119, 212, 0.2); color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); }
+.shift-DAY:hover { background: rgba(0, 119, 212, 0.4); }
+.shift-NIGHT { background: rgba(155, 77, 155, 0.2); color: #f472b6; border-color: rgba(244, 114, 182, 0.4); }
+.shift-NIGHT:hover { background: rgba(155, 77, 155, 0.4); }
+.shift-OFF { background: rgba(42, 42, 42, 0.6); color: #888; border-color: #444; }
+.shift-OFF:hover { background: rgba(80, 80, 80, 0.8); color: #aaa; }
+
+/* 違規顯示 (Violations) */
+.shift-cell.violation {
+    border-color: #ef4444; color: #ef4444;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.6), 0 0 5px inset rgba(239, 68, 68, 0.3);
+    animation: pulse-red 2s infinite;
+}
+@keyframes pulse-red { 0% { box-shadow: 0 0 8px rgba(239,68,68,0.5); } 50% { box-shadow: 0 0 15px rgba(239,68,68,0.8); } 100% { box-shadow: 0 0 8px rgba(239,68,68,0.5); } }
+
+/* 優化中鎖定指標 */
+.optimizing .shift-cell { pointer-events: none; opacity: 0.85; }
+
+/* RWD 微調 */
+@media screen and (max-width: 900px) {
+    .top-panel { top: 70px; right: 10px; left: 10px; max-width: none; flex-direction: column; align-items: flex-start; gap: 15px; }
+    .panel-header { border-right: none; border-bottom: 1px dashed rgba(0,255,255,0.3); padding-bottom: 10px; width: 100%; }
+    .grid-wrapper { top: 55%; padding: 10px; }
+    .schedule-grid { grid-template-columns: 60px repeat(7, 1fr); gap: 4px; }
+    .grid-header { font-size: 10px; }
+    .row-header { font-size: 11px; }
+    .shift-cell { height: 35px; font-size: 12px; }
+    .bottom-panel { bottom: 20px; padding: 15px 20px; gap: 20px; width: 90%; }
+}

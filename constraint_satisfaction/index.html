@@ -1,0 +1,84 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- 引入共用 Meta 與全域樣式 -->
+    {% include head.html %}
+    <title>SCHEDULING OPTIMIZER | {{ site.data.site_config.target_name }}</title>
+    <!-- 引入此專案專屬樣式 -->
+    <link rel="stylesheet" href="{{ '/constraint_satisfaction/style.css' | relative_url }}">
+</head>
+<body>
+
+    <!-- 共用背景特效 -->
+    <div class="grid-container"><div class="grid"></div></div>
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+
+    <!-- 系統狀態提示 -->
+    <div class="status-text"><span>SYSTEM ONLINE</span> // CSP_SCHEDULING_PROTOCOL_V2.0</div>
+
+    <!-- 返回主系統按鈕 -->
+    <a href="{{ '/' | relative_url }}" class="return-btn">
+        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        NATURE OS
+    </a>
+
+    <!-- 頂部控制面板 (HUD) -->
+    <div class="hud-panel top-panel">
+        <div class="panel-header">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <div>
+                <h1 class="panel-title">排班約束滿足模擬器</h1>
+                <p class="panel-subtitle">Constraint Satisfaction Problem</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="toggle-group">
+                <label>嚴格休假偏好 (Strict Leave)</label>
+                <label class="switch">
+                    <input type="checkbox" id="strictLeaveToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="btn-group">
+                <button id="optimizeBtn" class="cyber-btn primary">
+                    <svg class="btn-icon play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
+                    <svg class="btn-icon pause-icon hidden" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                    <span id="optimizeText">執行最佳化</span>
+                </button>
+                <button id="resetBtn" class="cyber-btn secondary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    重置
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 中央排班網格區 -->
+    <div class="grid-wrapper hud-panel">
+        <div id="schedule-grid" class="schedule-grid">
+            <!-- 由 JS 動態生成 -->
+        </div>
+    </div>
+
+    <!-- 底部數據統計區 (HUD) -->
+    <div class="hud-panel bottom-panel">
+        <div class="stat-box">
+            <div class="stat-label">硬約束分數 (HARD)</div>
+            <div id="hardScore" class="stat-value text-red">0</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-box">
+            <div class="stat-label">軟約束分數 (SOFT)</div>
+            <div id="softScore" class="stat-value text-cyan">0</div>
+        </div>
+    </div>
+
+    <script src="{{ '/constraint_satisfaction/script.js' | relative_url }}"></script>
+</body>
+</html>
