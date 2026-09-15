@@ -20,6 +20,79 @@
 
 GitHub Actions 透過 Workflow 協助開發者自動化建置、測試與部署（CI/CD）等軟體開發生命週期。以下是 Workflow 的架構解析與運作原理。
 
+## Jekyll的部屬流程
+
+以 `leno-portfolio` 專案目錄結構為基礎，Jekyll 的 GitHub Pages 部署流程可分為三大階段。這個過程完全由 GitHub Actions 自動化執行，將原始的「零散資料與模板」轉化為「可供瀏覽器讀取的純靜態網頁」。
+
+### 觸發與初始化環境
+
+* **觸發工作流程**：當您將更新後的程式碼推送到 GitHub 儲存庫（通常是 `main` 分支）時，系統會偵測到 `.github/workflows/jekyll-gh-pages.yml` 這個配置檔。
+* **分配執行器**：GitHub 會啟動一台虛擬伺服器（Runner，例如 `ubuntu-latest`）。
+* **檢出代碼 (Checkout)**：虛擬伺服器會將您的 `leno-portfolio` 專案完整下載到其內部環境中。
+
+### 構建與編譯 (Build Phase)
+
+這是 Jekyll 引擎發揮作用的核心階段，它會解析專案樹中的各個解耦模組，並將它們縫合在一起：
+
+* **載入動態資料**：引擎首先掃描 `_data/site_config.json`，將導覽列的結構、超連結與網站標題等設定載入記憶體中，作為全站可用的變數。
+* **解析與組件拼裝**：
+* 引擎讀取到 `index.html` 頂端的 `---` (Front Matter) 標記，確認該檔案需要進行模板編譯。
+* 當遇到 `{% include head.html %}` 與 `{% include nav.html %}` 標籤時，Jekyll 會進入 `_includes` 資料夾抓取對應的 HTML 碎片。
+* 在處理 `nav.html` 時，引擎會將第一步載入的 JSON 資料注入到 Liquid 迴圈中，動態生成完整的 `<nav>` 選單。
+
+
+* **靜態資源搬移**：對於 `assets/style.css` 與 `assets/app.js`，因為它們不需要模板編譯，引擎會原封不動地將它們複製過去。
+* **產出構建結果 (Artifact)**：所有最終編譯好的純 HTML、CSS 與 JavaScript 檔案，會被集中輸出到一個預設為 `_site/` 的隱藏目錄中，並打包成一個稱為 Artifact 的上傳包。
+
+### 部署與發布 (Deploy Phase)
+
+* **環境交接**：GitHub Actions 會驗證 Build 階段是否無錯誤地完成，接著進入 Deploy 階段。
+* **檔案推送**：將打包好的 Artifact 解壓縮，並直接佈署到 GitHub 的全球內容傳遞網路（CDN）伺服器上。
+* **正式上線**：幾秒鐘後，網站便會在 `https://<帳號>.github.io/leno-portfolio/` 成功更新，任何人都可以存取。
+---
+
+### 流程圖
+- 以 `leno-portfolio` 專案目錄結構為例
+```mermaid
+graph TD
+    %% 階段一：觸發與初始化環境
+    subgraph Phase1 [階段一：觸發與初始化環境]
+        A([開發者推送程式碼至 main 分支]) --> B(GitHub Actions 偵測 jekyll-gh-pages.yml)
+        B --> C{啟動 Ubuntu Runner 虛擬機}
+        C --> D[檢出代碼 Checkout leno-portfolio]
+    end
+
+    %% 階段二：構建與編譯 (Build Phase)
+    subgraph Phase2 [階段二：構建與編譯 Build Phase]
+        D --> E((Jekyll 引擎啟動))
+        E --> F[載入動態資料 <br/> _data/site_config.json]
+        E --> G[解析主模板 <br/> index.html 的 Front Matter]
+        E --> H[搬移靜態資源 <br/> assets/ 內的 css 與 js]
+        
+        F -. 資料注入 .-> I
+        G -. 觸發 include .-> I[組件拼裝 <br/> 渲染 _includes/head.html <br/> 與 _includes/nav.html]
+        
+        I --> J[輸出純靜態網頁與資源 <br/> 集中至 _site/ 隱藏目錄]
+        H --> J
+        J --> K[將 _site/ 打包成 <br/> Artifact 上傳包]
+    end
+
+    %% 階段三：部署與發布 (Deploy Phase)
+    subgraph Phase3 [階段三：部署與發布 Deploy Phase]
+        K --> L(環境驗證與交接 <br/> Deploy Job 啟動)
+        L --> M[解壓縮 Artifact <br/> 並部署至 GitHub CDN]
+        M --> N([網站正式上線 <br/> github.io/leno-portfolio/])
+    end
+
+    %% 樣式設定
+    style A fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    style N fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style Phase1 fill:#fafafa,stroke:#9e9e9e,stroke-dasharray: 5 5
+    style Phase2 fill:#fcf3cf,stroke:#f1c40f,stroke-dasharray: 5 5
+    style Phase3 fill:#e8eaf6,stroke:#3f51b5,stroke-dasharray: 5 5
+    style E fill:#ff9800,stroke:#e65100,color:#fff
+```
+
 ## 核心運作架構
 
 ```mermaid
