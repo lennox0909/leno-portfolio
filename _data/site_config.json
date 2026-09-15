@@ -16,7 +16,9 @@
         { "title": "> GAME OF LIFE", "url": "./game_of_life/" },
         { "title": "> 車輛路徑優化模擬 ", "url": "./Timefold/" },
         { "title": "> 最佳路徑搜尋", "url": "./pathfinding/" },
+        { "title": "> GNN 交通壅塞模擬器", "url": "./GNNTraffic/" },
         { "title": "> AIoT Matter Protocol", "url": "./AIoT/" }
+        
       ]
     },
     {

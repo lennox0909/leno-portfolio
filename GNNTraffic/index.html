@@ -1,0 +1,81 @@
+---
+layout: none
+---
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <!-- 引入共用 Meta 與全域樣式 -->
+    {% include head.html %}
+    <title>GNN TRAFFIC SIMULATOR | {{ site.data.site_config.target_name }}</title>
+    <!-- 引入 D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- 引入此專案專屬樣式 -->
+    <link rel="stylesheet" href="{{ '/GNNTraffic/style.css' | relative_url }}">
+</head>
+<body>
+
+    <!-- 共用背景特效 -->
+    <div class="grid-container"><div class="grid"></div></div>
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+
+    <!-- 系統狀態提示 -->
+    <div class="status-text"><span>SYSTEM ONLINE</span> // GNN TRAFFIC PROTOCOL_V1.0</div>
+
+    <!-- 返回主系統按鈕 -->
+    <a href="{{ '/' | relative_url }}" class="return-btn">
+        <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        NATURE OS
+    </a>
+
+    <!-- 頂部控制面板 (HUD) -->
+    <div class="hud-panel top-panel">
+        <div class="panel-header">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <div>
+                <h1 class="panel-title">GNN 車流壅塞模擬器</h1>
+                <p class="panel-subtitle">Traffic Failure Diffusion</p>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <div class="slider-group">
+                <label>路網密度 (Density): <span id="densityDisp" class="highlight">0.5</span></label>
+                <input type="range" id="densitySlider" min="0.2" max="1.0" step="0.1" value="0.5">
+            </div>
+            
+            <div class="btn-group">
+                <button id="triggerBtn" class="cyber-btn primary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    觸發壅塞 (Trigger)
+                </button>
+                <button id="resetBtn" class="cyber-btn secondary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    重置 (Reset)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- D3 核心繪圖區 (置中) -->
+    <div class="svg-wrapper">
+        <svg id="traffic-svg" preserveAspectRatio="xMidYMid meet"></svg>
+        <p class="hint-text">Click any intersection node to simulate traffic failure.</p>
+    </div>
+
+    <!-- 底部數據統計區 (HUD) -->
+    <div class="hud-panel bottom-panel">
+        <div class="stat-box">
+            <div class="stat-label">受影響節點 (AFFECTED)</div>
+            <div id="affectedDisp" class="stat-value text-cyan">0</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-box">
+            <div class="stat-label">系統負載 (SYSTEM LOAD)</div>
+            <div id="systemLoadDisp" class="stat-value text-blue">Normal</div>
+        </div>
+    </div>
+
+    <script src="{{ '/GNNTraffic/script.js' | relative_url }}"></script>
+</body>
+</html>
