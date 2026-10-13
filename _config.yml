@@ -1,3 +1,7 @@
 # 檔案路徑：_config.yml
 # 設定子目錄路徑，確保與您的 GitHub Repository 名稱完全一致（必須包含開頭的斜線）
-baseurl: "/leno-portfolio"
+
+url: "https://hrms.leno-1.com"
+# 請將下方改為你的 GitHub 儲存庫名稱 (注意最前面一定要有斜線)
+# baseurl: "/leno-portfolio"
+baseurl: ""
